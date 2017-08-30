@@ -1,0 +1,33 @@
+简单的概括就是：webpack是一个模块打包工具，处理模块之间的依赖同时生成对应模块的静态资源。
+webpack把项目中所有的静态文件都看作一个模块
+模快之间存在着一些列的依赖
+多页面的静态资源生成(打包之后生成多个静态文件，涉及到代码拆分)
+chunk是使用Webpack过程中最重要的几个概念之一。在Webpack打包机制中，
+编译的文件包括entry（入口，可以是一个或者多个资源合并而成，由html通过script标签引入）
+和chunk（被entry所依赖的额外的代码块，同样可以包含一个或者多个文件）。
+从页面加速的角度来讲，我们应该尽可能将所有的js打包到一个bundle.js之中，
+但是总会有一些功能是使用过程中才会用到的。出于性能优化的需要，对于这部分资源我们可以做成按需加载
+
+Loader
+Loader就是资源转换器。由于在webpack里，所有的资源都是模块，不同资源都最终转化成js去处理。
+针对不同形式的资源采用不同的Loader去编译，这就是Loader的意义。Loader在使用之前必须先通过npm安装
+Plugin
+插件的引入和loader差不多，只是插件是以对象的形式引入。像静态资源路径的替换这种功能就能通过插件来处理。比如公用模块打包到chunk的插件：
+
+
+
+
+01 webpack最基本的命令 webpack hello.js hello.bundle.js
+02 引入 css 和js
+03 css需要安装 css-loader style-loader,并且指定给它.--watch --progress 看到打包过程 --display-modules 用了哪些打包模块
+04 加载webpack.config.js 入口，和打包。上述命令语句写在package.json里
+05 同时打包多个js文件
+06 html-webpack-plugin的引入和配置
+07多个页面打包加载不同的js.
+08使用babel-loader 处理资源文件
+09 cssloader 和postcss-loader处理css文件
+10 html-loader 和图片的处理。图片大小的压缩
+11 加载webpack-dev-server .webpack-dev-server是一个小型的Node.js Express服务器,它使用webpack-dev-middleware来服务于webpack的包
+webpack-dev-server是一个独立的NPM包,你可以通过npm install webpack-dev-server来安装它.
+实时刷新和热加载。自动打开浏览器
+12区分开发环境的打包和上线环境的打包
