@@ -5,9 +5,9 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
     // entry: './src/app.js',
     entry: {
+        vendor: Object.keys(pkg.dependencies),
         app:__dirname+'app/index.jsx',
-        // 将 第三方依赖（node_modules中的） 单独打包 dependencies 发布需要的依赖（package.json）
-        vendor: Object.keys(pkg.dependencies)
+        // 将 第三方依赖（node_modules中的） 单独打包 dependencies 发布需要的依赖（package.json）      
     },
     output: {
         path: __dirname + "/dist",
@@ -29,23 +29,10 @@ module.exports = {
             //配置cssloader,和自动加载前缀
             {
                 test: /\.css$/,
-                exclude: /("\.\/node_modules")/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: function () {
-                                return [require('postcss-import')(),
-                                    require('autoprefixer')({
-                                        browsers: ['last 5 versions']
-                                    })
-                                ]
-                            }
-                        }
-                    }
-                ]
+                use: ExtractTextPlugin.extract({
+                  fallback: "style-loader",
+                  use: "css-loader"
+                })
             },
             //html模板的处理
             {
